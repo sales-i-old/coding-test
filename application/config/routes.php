@@ -41,6 +41,15 @@
 $route['default_controller'] = "todo";
 $route['404_override'] = '';
 
+/*
+ * Note: Matt Asbury
+ * This small piece of regex will allow us to remove the default controller
+ * from the URL without it breaking. The items inside the brackets should
+ * contain anything we don't want rewritten to the default controller.
+ * 
+ * Multiple items should be piped (e.g. (?!assets|js|css))
+ */
+$route['^(?!assets).*'] = $route['default_controller'] . '/$0';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
