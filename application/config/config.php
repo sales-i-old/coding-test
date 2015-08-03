@@ -16,7 +16,7 @@
 | environments.
 |
 */
-$config['base_url'] = 'http://phptest.dev/';
+$config['base_url'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +46,13 @@ $config['index_page'] = '';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= 'AUTO';
+
+/*
+ * @author Matt Asbury
+ * AUTO was causing problems by returning 404 for valid pages. This was
+ * corrected by switching it to REQUEST_URI
+ */
+$config['uri_protocol']	= 'REQUEST_URI';
 
 /*
 |--------------------------------------------------------------------------
@@ -226,7 +232,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = 'ui8Hdn29j9dq9w92j2i29ej29e2992jm,a"sd8';
 
 /*
 |--------------------------------------------------------------------------

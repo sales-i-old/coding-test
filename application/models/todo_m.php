@@ -7,7 +7,7 @@ class Todo_m extends CI_Model
 		parent::__construct();
 	}
 
-	public function get_active_list()
+	public function getActiveList()
 	{
 		$this->db->where('complete', 0);
 		$query = $this->db->get('to_do_list');
@@ -16,7 +16,7 @@ class Todo_m extends CI_Model
 		return $result;
 	}
 
-	public function get_inactive_list()
+	public function getInactiveList()
 	{
 		$this->db->where('complete',1);
 		$query = $this->db->get('to_do_list');
@@ -25,7 +25,7 @@ class Todo_m extends CI_Model
 		return $result;
 	}
 
-	public function add_item($item)
+	public function addItem($item)
 	{
 		$data = array(
 			'item_name' => $item,
@@ -36,19 +36,42 @@ class Todo_m extends CI_Model
 
 		return $this->affected();
 	}
+    
+    public function getItem($id)
+    {
+        $this->db->where('id', $id);
+		$query = $this->db->get('to_do_list');
+		$result = $query->result_array();
 
-	public function delete_item($id)
+		return $result[0];
+    }
+    
+    public function editItem($id, $item)
+    {
+        $data = array(
+            'item_name' => $item
+        );
+        
+        $this->db->where('id', $id);
+        $this->db->update('to_do_list', $data);
+    }
+
+	public function deleteItem($id)
 	{
-		$data = array('complete' => 0);
+		$data = array('complete' => 1);
 		$this->db->where('id', $id);
 		$this->db->update('to_do_list', $data);
 
 		return $this->affected();
 	}
 
-	public function reinstate_item()
+	public function reinstateItem($id)
 	{
+        $data = array('complete' => 0);
+		$this->db->where('id', $id);
+		$this->db->update('to_do_list', $data);
 
+		return $this->affected();
 	}
 
 	private function affected()
@@ -61,8 +84,7 @@ class Todo_m extends CI_Model
 		{
 			return false;
 		}
-	}
-
+    }
 }
 
 /* End of file todo_m.php */
